@@ -1,0 +1,27 @@
+---
+interface Props {
+  href: string;
+  name: string;
+}
+
+const { href, name } = Astro.props;
+---
+
+<div class="flex items-baseline space-x-2 my-1">
+  {
+    Astro.slots.has("default") ?
+      <p class="my-0 font-semibold">
+        <slot />
+      </p> : null
+  }
+  <a class="hover:underline underline-offset-4 text-sky-800 font-semibold" href={href} target="_blank">
+    {name}
+  </a>
+  {
+    Astro.slots.has("extra") ?
+      <p class="text-gray-500 text-sm select-none">
+        <slot name="extra" />
+      </p> : null
+  }
+</div>
+

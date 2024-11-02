@@ -1,0 +1,117 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SocialLink from "../components/SocialLink.astro";
+import Box from "../layouts/Box.astro";
+import Link from "../components/Link.astro";
+import H2 from "../components/H2.astro";
+import { getAllData, getLast7Data, getNowData, getProgramLanguageData } from "../utils/wakatime";
+import { formatDate } from "../utils/date";
+
+const data = await getAllData();
+const last7Days = await getLast7Data();
+const nowData = await getNowData();
+const colorData = await getProgramLanguageData();
+---
+
+<Layout title="eya46">
+  <div class="space-y-5">
+    <div class="flex items-center mt-3 select-none">
+      <img class="rounded-full mr-3 size-28 hover:rotate-360 hover:scale-150 duration-500 transform-gpu"
+           alt="eya46 avator" src="/avator.jpg" />
+      <div>
+        <h2 class="font-semibold text-2xl ">eya46</h2>
+        <p class="text-gray-700 text-xl ">eya46是eya46</p>
+        <p class="text-gray-500 text-base">
+          coding: {nowData ? nowData.data.categories[0].text : "未知"}
+        </p>
+        <p class="text-gray-400 text-sm">
+          更新于{nowData ? formatDate(nowData.cached_at) : "未知"}
+        </p>
+      </div>
+    </div>
+    <div class="space-y-5">
+      <Box>
+        <H2>联系</H2>
+        <SocialLink href="https://github.com/eya46" icon="/github.svg" name="Github">
+          eya46
+        </SocialLink>
+        <SocialLink href="https://space.bilibili.com/19559365" icon="/bilibili.svg" name="Bilibili">
+          eya46
+        </SocialLink>
+        <SocialLink icon="/qq.svg" name="QQ">
+          <span class="select-all">
+            644310932
+          </span>
+        </SocialLink>
+        <SocialLink icon="/email.svg" name="Email">
+          <span class="select-all">
+            admin@eya46.com
+          </span>
+        </SocialLink>
+      </Box>
+      <Box>
+        <H2>个人网站</H2>
+        <Link href="https://blog.eya46.com" name="eya46-blog">
+          博客
+        </Link>
+        <Link href="https://hanser.我爱你" name="hanser.我爱你" />
+        <Link href="https://2-b.icu" name="2-b.icu">
+          <span slot="extra">
+            某个工具站
+          </span>
+        </Link>
+        <Link href="https://tz.eya46.com/" name="哪吒探针">
+          探针
+          <span slot="extra">
+            我的小机机
+          </span>
+        </Link>
+      </Box>
+      <Box>
+        <H2>编码时间</H2>
+        <div class="space-y-0.5">
+          {data ?
+            <div class="text-base flex">
+              <span class="w-28 select-none">总编码时间:</span>
+              <span class="underline">{data.text}</span>
+            </div> : null}
+          {
+            last7Days ?
+              <div class="text-base flex">
+                <span class="w-28 select-none">七日编码时间:</span>
+                <span class="underline">
+              {last7Days.categories[0].text}
+            </span>
+              </div> : null
+          }
+          {
+            last7Days && colorData ?
+              <div class="p-3 bg-gray-300 bg-opacity-50 rounded-xl">
+                {
+                  last7Days.languages.slice(0, 10).map((item) => (
+                    item.total_seconds > 60 * 30 ?
+                      <div class="text-base flex">
+                    <span class="w-28 select-none text-gray-500"
+                          style={
+                            colorData[item.name] ? `color: ${colorData[item.name]}` : null
+                          }
+                    >{item.name}:</span>
+                        <span class="underline">{item.text}</span>
+                      </div> : null
+                  ))
+                }
+              </div> : null
+          }
+        </div>
+      </Box>
+    </div>
+  </div>
+  <!--
+  https://icon-sets.iconify.design/
+  -->
+
+</Layout>
+
+<style>
+
+</style>

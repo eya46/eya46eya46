@@ -22,7 +22,7 @@ const colorData = await getProgramLanguageData();
         <h2 class="font-semibold text-2xl ">eya46</h2>
         <p class="text-gray-700 text-xl ">eya46是eya46</p>
         <p class="text-gray-500 text-base">
-          coding: {nowData ? nowData.data.categories[0].text : "未知"}
+          coding: {nowData ? nowData.data.categories[0]?.text || "无" : "未知"}
         </p>
         <p class="text-gray-400 text-sm">
           更新于{nowData ? formatDate(nowData.cached_at) : "未知"}
@@ -80,7 +80,7 @@ const colorData = await getProgramLanguageData();
               <div class="text-base flex">
                 <span class="w-28 select-none">七日编码时间:</span>
                 <span class="underline">
-              {last7Days.categories[0].text}
+              {last7Days.categories[0]?.text || "无数据"}
             </span>
               </div> : null
           }

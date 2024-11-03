@@ -18,6 +18,9 @@ const { href, icon, name } = Astro.props;
     href ? (
         <a class="hover:underline underline-offset-4 text-sky-800 font-semibold" href={href} target="_blank">
           <slot />
+          {
+            !href ? null : <img class="inline" src="/link.svg" alt=`前往${name}` />
+          }
         </a>) :
       <p class="text-sky-800 font-semibold">
         <slot />

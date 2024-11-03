@@ -100,19 +100,6 @@ export interface Data {
   range: Range;
 }
 
-export interface Category {
-  decimal: string;
-  digital: string;
-  hours: number;
-  minutes: number;
-  name: string;
-  percent: number;
-  seconds: number;
-  text: string;
-  total_seconds: number;
-  machine_name_id?: string;
-}
-
 export interface GrandTotal {
   decimal: string;
   digital: string;
@@ -128,4 +115,8 @@ export interface Range {
   start: string;
   text: string;
   timezone: string;
+}
+
+export interface ProgramLanguage {
+  [key: string]: string;
 }

@@ -1,0 +1,25 @@
+---
+import { formatDateTillHour } from "../utils/date";
+import H2 from "./H2.astro";
+interface Props {
+  timestamp?: number;
+  title?: string;
+}
+
+const { timestamp, title } = Astro.props;
+---
+
+<div class="flex items-baseline space-x-1.5">
+  {
+    Astro.slots.has("default") ?
+      <slot /> : <H2>{title}</H2>
+  }
+  {
+    !timestamp ? null :
+      <span class="text-sm text-gray-500 select-none">
+        {
+          formatDateTillHour(timestamp)
+        }
+      </span>
+  }
+</div>

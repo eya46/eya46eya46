@@ -9,22 +9,21 @@ const { href, name } = Astro.props;
 
 <div class="flex items-baseline space-x-2 my-1">
   {
-    Astro.slots.has("default") ?
+    Astro.slots.has("default") ? (
       <p class="my-0 font-semibold">
         <slot />
-      </p> : null
+      </p>
+    ) : null
   }
   <a class="hover:underline underline-offset-4 text-sky-800 font-semibold" href={href} target="_blank">
     {name}
-    {
-      !href ? null : <img class="inline" src="/link.svg" alt=`前往${name}` />
-    }
+    {!href ? null : <img alt={`前往${name}`} class="inline" src="/link.svg" />}
   </a>
   {
-    Astro.slots.has("extra") ?
+    Astro.slots.has("extra") ? (
       <p class="text-gray-500 text-sm select-none">
         <slot name="extra" />
-      </p> : null
+      </p>
+    ) : null
   }
 </div>
-

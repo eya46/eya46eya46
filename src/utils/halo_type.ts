@@ -202,12 +202,10 @@ export interface Item {
 export interface Metadata {
   generateName: string;
   name: string;
-  annotations: Annotations;
+  annotations: object;
   version: number;
   creationTimestamp: string;
 }
-
-export interface Annotations {}
 
 export interface Spec {
   url: string;

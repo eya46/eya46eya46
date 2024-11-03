@@ -13,86 +13,90 @@ const { posts } = Astro.props;
 
 const postsUpdateTime = getCacheUpdateTime("posts");
 ---
+
 <div>
-  <H2Title title="文章" timestamp={postsUpdateTime} />
+  <H2Title timestamp={postsUpdateTime} title="文章" />
   <div class="space-y-2 mt-2">
     {
-      posts.items.filter((item) => {
-        return item.post?.kind === "Post";
-      }).slice(0, 5).map((item) => (
-        <Box>
-          <div class="relative">
-            <p class="absolute right-1 text-sm text-gray-500 select-none">
-              {formatDateTillHour(item.post.spec.publishTime)}
-            </p>
+      posts.items
+        .filter((item) => {
+          return item.post?.kind === "Post";
+        })
+        .slice(0, 5)
+        .map((item) => (
+          <Box>
+            <div class="relative">
+              <p class="absolute right-1 text-sm text-gray-500 select-none">
+                {formatDateTillHour(item.post.spec.publishTime)}
+              </p>
 
-            <p class="text-base hover:text-sky-700 flex items-center">
-              <a href=`https://blog.eya46.com${item.post.status.permalink}` target="_blank" class="flex items-center">
-                <span class="block truncate mr-2 sm:max-w-none max-w-40">{item.post.spec.title}</span>
-                <img src="/link.svg" alt=`前往${item.post.spec.title}` />
-              </a>
-            </p>
-            <div class="pl-2 mt-2">
-              {
-                !item.stats || !(item.stats.visit > 0 || item.stats.approvedComment > 0) ? null :
+              <p class="text-base hover:text-sky-700 flex items-center">
+                <a
+                  class="flex items-center"
+                  href={`https://blog.eya46.com${item.post.status.permalink}`}
+                  target="_blank"
+                >
+                  <span class="block truncate mr-2 sm:max-w-none max-w-40">{item.post.spec.title}</span>
+                  <img alt={`前往${item.post.spec.title}`} src="/link.svg" />
+                </a>
+              </p>
+              <div class="pl-2 mt-2">
+                {!item.stats || !(item.stats.visit > 0 || item.stats.approvedComment > 0) ? null : (
                   <div class="text-xs flex space-x-3">
-                    {!item.stats.visit ? null :
+                    {!item.stats.visit ? null : (
                       <div class="flex">
                         <span class="w-10 select-none">阅读:</span>
                         <span class="text-gray-500 blo">{item.stats.visit}</span>
                       </div>
-                    }
-                    {!item.stats.approvedComment ? null :
+                    )}
+                    {!item.stats.approvedComment ? null : (
                       <div class="flex">
                         <span class="w-10 select-none">评论:</span>
                         <span class="text-gray-500">{item.stats.approvedComment}</span>
                       </div>
-                    }
+                    )}
                   </div>
-              }
-              {
-                item.categories.length > 0 ?
+                )}
+                {item.categories.length > 0 ? (
                   <div class="mt-2 text-xs flex space-x-0.5">
                     <span class="w-10 select-none">分类:</span>
                     <div class="with-comma">
-                      {
-                        item.categories.map((category) => (
-                          <a class="text-gray-500 with-comma hover:underline"
-                             href=`https://blog.eya46.com/categories/${category.spec.slug}`>
-                            {category.spec.displayName}
-                          </a>
-                        ))
-                      }
+                      {item.categories.map((category) => (
+                        <a
+                          class="text-gray-500 with-comma hover:underline"
+                          href={`https://blog.eya46.com/categories/${category.spec.slug}`}
+                        >
+                          {category.spec.displayName}
+                        </a>
+                      ))}
                     </div>
                   </div>
-                  : null
-              }
-              {
-                item.tags.length < 1 ? null :
+                ) : null}
+                {item.tags.length < 1 ? null : (
                   <div class="mt-2 text-xs flex space-x-0.5">
                     <span class="w-10 select-none">标签:</span>
                     <div class="with-comma">
-                      {
-                        item.tags.map((tag) => (
-                          <a class="text-gray-500 with-comma hover:underline"
-                             href=`https://blog.eya46.com/tags/${tag.spec.slug}`>
-                            {tag.spec.displayName}
-                          </a>
-                        ))
-                      }
+                      {item.tags.map((tag) => (
+                        <a
+                          class="text-gray-500 with-comma hover:underline"
+                          href={`https://blog.eya46.com/tags/${tag.spec.slug}`}
+                        >
+                          {tag.spec.displayName}
+                        </a>
+                      ))}
                     </div>
                   </div>
-              }
+                )}
+              </div>
             </div>
-          </div>
-        </Box>
-      ))
+          </Box>
+        ))
     }
   </div>
 </div>
 
 <style>
-    .with-comma > *:not(:last-child)::after {
-        content: ",";
-    }
+  .with-comma > *:not(:last-child)::after {
+    content: ",";
+  }
 </style>

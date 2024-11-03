@@ -9,22 +9,21 @@ const { href, icon, name } = Astro.props;
 ---
 
 <div class="flex items-center space-x-2 my-2">
-  <img class="size-8" src={icon} alt={name} />
+  <img alt={name} class="size-8" src={icon} />
 
   <p class="my-0 font-semibold">
     {name}
   </p>
   {
     href ? (
-        <a class="hover:underline underline-offset-4 text-sky-800 font-semibold" href={href} target="_blank">
-          <slot />
-          {
-            !href ? null : <img class="inline" src="/link.svg" alt=`前往${name}` />
-          }
-        </a>) :
+      <a class="hover:underline underline-offset-4 text-sky-800 font-semibold" href={href} target="_blank">
+        <slot />
+        {!href ? null : <img alt={`前往${name}`} class="inline" src="/link.svg" />}
+      </a>
+    ) : (
       <p class="text-sky-800 font-semibold">
         <slot />
       </p>
+    )
   }
 </div>
-

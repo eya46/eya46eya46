@@ -24,11 +24,14 @@ const [data, last7Days, nowData, colorData, posts, links] = await Promise.all([
 <Layout title="eya46">
   <div class="space-y-5">
     <div class="flex items-center mt-3 select-none">
-      <img class="rounded-full mr-3 size-28 hover:rotate-360 hover:scale-150 duration-500 transform-gpu"
-           alt="eya46 avator" src="/avator.jpg" />
+      <img
+        alt="eya46 avator"
+        class="rounded-full mr-3 size-28 hover:rotate-360 hover:scale-150 duration-500 transform-gpu"
+        src="/avator.jpg"
+      />
       <div>
-        <h2 class="font-semibold text-2xl ">eya46</h2>
-        <p class="text-gray-700 text-xl ">eya46是eya46</p>
+        <h2 class="font-semibold text-2xl">eya46</h2>
+        <p class="text-gray-700 text-xl">eya46是eya46</p>
         <p class="text-gray-500 text-base">
           coding: {nowData ? nowData.data.categories[0]?.text || "无" : "未知"}
         </p>
@@ -40,56 +43,34 @@ const [data, last7Days, nowData, colorData, posts, links] = await Promise.all([
     <div class="space-y-5">
       <Box>
         <H2>联系</H2>
-        <SocialLink href="https://github.com/eya46" icon="/github.svg" name="Github">
-          eya46
-        </SocialLink>
-        <SocialLink href="https://space.bilibili.com/19559365" icon="/bilibili.svg" name="Bilibili">
-          eya46
-        </SocialLink>
+        <SocialLink href="https://github.com/eya46" icon="/github.svg" name="Github"> eya46 </SocialLink>
+        <SocialLink href="https://space.bilibili.com/19559365" icon="/bilibili.svg" name="Bilibili"> eya46 </SocialLink>
         <SocialLink icon="/qq.svg" name="QQ">
-          <span class="select-all">
-            644310932
-          </span>
+          <span class="select-all"> 644310932 </span>
         </SocialLink>
         <SocialLink icon="/email.svg" name="Email">
-          <span class="select-all">
-            admin@eya46.com
-          </span>
+          <span class="select-all"> admin@eya46.com </span>
         </SocialLink>
       </Box>
       <Box>
         <H2>个人网站</H2>
-        <Link href="https://blog.eya46.com" name="eya46-blog">
-          博客
-        </Link>
+        <Link href="https://blog.eya46.com" name="eya46-blog"> 博客 </Link>
         <Link href="https://hanser.我爱你" name="hanser.我爱你" />
         <Link href="https://2-b.icu" name="2-b.icu">
-          <span slot="extra">
-            某个工具站
-          </span>
+          <span slot="extra"> 某个工具站 </span>
         </Link>
         <Link href="https://tz.eya46.com/" name="哪吒探针">
           探针
-          <span slot="extra">
-            我的小机机
-          </span>
+          <span slot="extra"> 我的小机机 </span>
         </Link>
       </Box>
       <Box>
         <CodingTime colorData={colorData} data={data} last7Days={last7Days} />
       </Box>
-      {
-        !posts ? null :
-          <Posts posts={posts} />
-      }
-      {
-        !links ? null :
-          <Blogroll links={links} />
-      }
+      {!posts ? null : <Posts posts={posts} />}
+      {!links ? null : <Blogroll links={links} />}
     </div>
   </div>
 </Layout>
 
-<style>
-
-</style>
+<style></style>

@@ -14,7 +14,6 @@ export default defineConfig({
   adapter: node({
     mode: "standalone",
   }),
-  prefetch: true,
   vite: {
     build: {
       rollupOptions: {

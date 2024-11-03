@@ -14,40 +14,42 @@ const { data, last7Days, colorData } = Astro.props;
 const last7Time = getCacheUpdateTime("last_7_days");
 const allDataTime = getCacheUpdateTime("all_time_since_today");
 ---
-<H2Title title="编码时间" timestamp={last7Time && allDataTime ? Math.min(last7Time, allDataTime) : undefined} />
+
+<H2Title timestamp={last7Time && allDataTime ? Math.min(last7Time, allDataTime) : undefined} title="编码时间" />
 <div class="space-y-0.5">
   {
-    !data ? null :
+    !data ? null : (
       <div class="text-base flex">
         <span class="w-28 select-none">总编码时间:</span>
         <span class="underline">{data.text}</span>
       </div>
+    )
   }
   {
-    !last7Days ? null :
+    !last7Days ? null : (
       <div class="text-base flex">
         <span class="w-28 select-none">七日编码时间:</span>
-        <span class="underline">
-              {last7Days.categories[0].text}
-            </span>
+        <span class="underline">{last7Days.categories[0].text}</span>
       </div>
+    )
   }
   {
-    !last7Days || !colorData ? null :
+    !last7Days || !colorData ? null : (
       <div class="p-3 bg-gray-300 bg-opacity-50 rounded-xl">
-        {
-          last7Days.languages.slice(0, 10).map((item) => (
-            item.total_seconds > 60 * 30 ?
-              <div class="text-base flex">
-                    <span class="w-28 select-none text-gray-500"
-                          style={
-                            colorData[item.name] ? `color: ${colorData[item.name]}` : null
-                          }
-                    >{item.name}:</span>
-                <span class="underline">{item.text}</span>
-              </div> : null
-          ))
-        }
+        {last7Days.languages.slice(0, 10).map((item) =>
+          item.total_seconds > 60 * 30 ? (
+            <div class="text-base flex">
+              <span
+                class="w-28 select-none text-gray-500"
+                style={colorData[item.name] ? `color: ${colorData[item.name]}` : null}
+              >
+                {item.name}:
+              </span>
+              <span class="underline">{item.text}</span>
+            </div>
+          ) : null
+        )}
       </div>
+    )
   }
 </div>

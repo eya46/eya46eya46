@@ -2,7 +2,7 @@
 import type { HaloLinks } from "../utils/halo_type";
 import Box from "../layouts/Box.astro";
 import Link from "./Link.astro";
-import { formatDateTillDay, formatDateTillHour } from "../utils/date";
+import { formatDateTillDay } from "../utils/date";
 import { getCacheUpdateTime } from "../utils/cache";
 import H2Title from "./H2Title.astro";
 
@@ -16,8 +16,7 @@ links.items.sort(() => Math.random() - 0.5);
 const linksUpdateTime = getCacheUpdateTime("links");
 ---
 
-
-<H2Title title="友情链接" timestamp={linksUpdateTime} />
+<H2Title timestamp={linksUpdateTime} title="友情链接" />
 <div class="space-y-2">
   {
     links.items.map((item) => (
@@ -26,13 +25,14 @@ const linksUpdateTime = getCacheUpdateTime("links");
           <p class="absolute right-1 text-sm text-gray-500 select-none">
             {formatDateTillDay(item.metadata.creationTimestamp)}
           </p>
-          <img class="rounded-full mr-3 size-14 hover:rotate-360 hover:scale-150 duration-500 transform-gpu"
-               src={item.spec.logo} alt={item.spec.displayName}>
+          <img
+            alt={item.spec.displayName}
+            class="rounded-full mr-3 size-14 hover:rotate-360 hover:scale-150 duration-500 transform-gpu"
+            src={item.spec.logo}
+          />
           <div class="">
             <Link href={item.spec.url} name={item.spec.displayName} />
-            <p class="text-gray-500">
-              {item.spec.description || "暂无简介"}
-            </p>
+            <p class="text-gray-500">{item.spec.description || "暂无简介"}</p>
           </div>
         </div>
       </Box>

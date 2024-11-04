@@ -4,4 +4,6 @@
 
 ```env
 WAKATIME_API=
+HALO_URL=
+HALO_TOKEN=
 ```

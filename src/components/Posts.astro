@@ -1,9 +1,11 @@
 ---
-import type { HaloPosts } from "../utils/halo_type";
+import type { HaloPosts } from "../utils/haloType";
 import Box from "../layouts/Box.astro";
 import { formatDateTillHour } from "../utils/date";
 import { getCacheUpdateTime } from "../utils/cache";
 import H2Title from "./H2Title.astro";
+import urlJoin from "url-join";
+import { halo } from "../utils/halo";
 
 interface Props {
   posts: HaloPosts;
@@ -31,11 +33,7 @@ const postsUpdateTime = getCacheUpdateTime("posts");
               </p>
 
               <p class="text-base hover:text-sky-700 flex items-center">
-                <a
-                  class="flex items-center"
-                  href={`https://blog.eya46.com${item.post.status.permalink}`}
-                  target="_blank"
-                >
+                <a class="flex items-center" href={urlJoin(halo.url, item.post.status.permalink)} target="_blank">
                   <span class="block truncate mr-2 sm:max-w-none max-w-40">{item.post.spec.title}</span>
                   <img alt={`前往${item.post.spec.title}`} src="/link.svg" />
                 </a>
@@ -64,7 +62,7 @@ const postsUpdateTime = getCacheUpdateTime("posts");
                       {item.categories.map((category) => (
                         <a
                           class="text-gray-500 with-comma hover:underline"
-                          href={`https://blog.eya46.com/categories/${category.spec.slug}`}
+                          href={urlJoin(halo.url, "categories", category.spec.slug)}
                         >
                           {category.spec.displayName}
                         </a>
@@ -79,7 +77,7 @@ const postsUpdateTime = getCacheUpdateTime("posts");
                       {item.tags.map((tag) => (
                         <a
                           class="text-gray-500 with-comma hover:underline"
-                          href={`https://blog.eya46.com/tags/${tag.spec.slug}`}
+                          href={urlJoin(halo.url, "tags", tag.spec.slug)}
                         >
                           {tag.spec.displayName}
                         </a>

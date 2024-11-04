@@ -1,17 +1,24 @@
-export function formatDate(data: string | number) {
+function NaNToNoData(originalMethod: (data: string | number) => string) {
+  return function (args: string | number) {
+    const result = originalMethod(args);
+    return result.includes("NaN") ? "未知时间" : result;
+  };
+}
+
+export const formatDate = NaNToNoData((data: string | number) => {
   const date = new Date(data);
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-}
+});
 
-export function formatDateTillDay(data: string | number) {
+export const formatDateTillDay = NaNToNoData((data: string | number) => {
   const date = new Date(data);
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-}
+});
 
-export function formatDateTillHour(data: string | number) {
+export const formatDateTillHour = NaNToNoData((data: string | number) => {
   const date = new Date(data);
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}h`;
-}
+});
 
 export function checkIsNextDay(time: string | number) {
   const now = new Date();

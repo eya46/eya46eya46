@@ -4,20 +4,20 @@ import SocialLink from "../components/SocialLink.astro";
 import Box from "../layouts/Box.astro";
 import Link from "../components/Link.astro";
 import H2 from "../components/H2.astro";
-import { getAllData, getLast7Data, getNowData, getProgramLanguageData } from "../utils/wakatime";
+import { wakatime } from "../utils/wakatime";
+import { halo } from "../utils/halo";
 import { formatDate } from "../utils/date";
-import { getPosts, getLinks } from "../utils/halo";
 import Posts from "../components/Posts.astro";
 import Blogroll from "../components/Blogroll.astro";
 import CodingTime from "../components/CodingTime.astro";
 
 const [data, last7Days, nowData, colorData, posts, links] = await Promise.all([
-  getAllData(),
-  getLast7Data(),
-  getNowData(),
-  getProgramLanguageData(),
-  getPosts(),
-  getLinks(),
+  wakatime.getAllData(),
+  wakatime.getLast7Data(),
+  wakatime.getNowData(),
+  wakatime.getProgramLanguageData(),
+  halo.getPosts(),
+  halo.getLinks(),
 ]);
 ---
 
@@ -43,8 +43,8 @@ const [data, last7Days, nowData, colorData, posts, links] = await Promise.all([
     <div class="space-y-5">
       <Box>
         <H2>联系</H2>
-        <SocialLink href="https://github.com/eya46" icon="/github.svg" name="Github"> eya46 </SocialLink>
-        <SocialLink href="https://space.bilibili.com/19559365" icon="/bilibili.svg" name="Bilibili"> eya46 </SocialLink>
+        <SocialLink href="https://github.com/eya46" icon="/github.svg" name="Github"> eya46</SocialLink>
+        <SocialLink href="https://space.bilibili.com/19559365" icon="/bilibili.svg" name="Bilibili"> eya46</SocialLink>
         <SocialLink icon="/qq.svg" name="QQ">
           <span class="select-all"> 644310932 </span>
         </SocialLink>
@@ -54,7 +54,7 @@ const [data, last7Days, nowData, colorData, posts, links] = await Promise.all([
       </Box>
       <Box>
         <H2>个人网站</H2>
-        <Link href="https://blog.eya46.com" name="eya46-blog"> 博客 </Link>
+        <Link href="https://blog.eya46.com" name="eya46-blog"> 博客</Link>
         <Link href="https://hanser.我爱你" name="hanser.我爱你" />
         <Link href="https://2-b.icu" name="2-b.icu">
           <span slot="extra"> 某个工具站 </span>

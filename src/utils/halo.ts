@@ -1,7 +1,8 @@
 import urlJoin from "url-join";
-import type { HaloLinks, HaloPosts } from "./halo_type.ts";
+import type { HaloLinks, HaloPosts } from "./haloType.ts";
 import { checkIsNextDay } from "./date.ts";
-import { setCache, getCache } from "./cache.ts";
+import { withCache } from "./cache.ts";
+import { withCatch } from "./funcTool.ts";
 
 const HALO_URL: string | undefined = import.meta.env.HALO_URL;
 const HALO_TOKEN: string | undefined = import.meta.env.HALO_TOKEN;
@@ -9,60 +10,38 @@ const HALO_TOKEN: string | undefined = import.meta.env.HALO_TOKEN;
 if (!HALO_URL) throw new Error("HALO_URL is not defined");
 if (!HALO_TOKEN) throw new Error("HALO_TOKEN is not defined");
 
-export const HALO_API = urlJoin(HALO_URL, "/apis");
+class Halo {
+  private readonly token: string;
+  public url: string;
+  public api: string;
 
-export const API_POST = urlJoin(HALO_API, "api.console.halo.run/v1alpha1/posts");
+  constructor(token: string, url: string) {
+    this.token = token;
+    this.url = url;
+    this.api = urlJoin(url, "/apis");
+  }
 
-async function _getPosts(): Promise<HaloPosts | undefined> {
-  console.log("fetching posts", new Date());
-  try {
-    const response = await fetch(API_POST, {
+  @withCache("posts", checkIsNextDay)
+  @withCatch
+  async getPosts(): Promise<HaloPosts | undefined> {
+    const response = await fetch(urlJoin(this.api, "/api.console.halo.run/v1alpha1/posts"), {
       headers: {
-        Authorization: `Bearer ${HALO_TOKEN}`,
+        Authorization: `Bearer ${this.token}`,
       },
     });
-    const data = (await response.json()) as HaloPosts;
-    setCache("posts", data);
-    return data;
-  } catch (e) {
-    console.error("error fetching posts", new Date());
-    console.error(e);
-    return undefined;
+    return (await response.json()) as HaloPosts;
   }
-}
 
-export async function getPosts(): Promise<HaloPosts | undefined> {
-  const [time, data] = getCache("posts");
-  if (time && data) {
-    if (checkIsNextDay(time)) _getPosts().then();
-    return data as HaloPosts;
-  }
-  return await _getPosts();
-}
-
-async function _getLinks(): Promise<HaloLinks | undefined> {
-  console.log("fetching links", new Date());
-  try {
-    const response = await fetch(urlJoin(HALO_API, "/api.plugin.halo.run/v1alpha1/plugins/PluginLinks/links"), {
+  @withCache("links", checkIsNextDay)
+  @withCatch
+  async getLinks(): Promise<HaloLinks | undefined> {
+    const response = await fetch(urlJoin(this.api, "/api.plugin.halo.run/v1alpha1/plugins/PluginLinks/links"), {
       headers: {
-        Authorization: `Bearer ${HALO_TOKEN}`,
+        Authorization: `Bearer ${this.token}`,
       },
     });
-    const data = (await response.json()) as HaloLinks;
-    setCache("links", data);
-    return data;
-  } catch (e) {
-    console.error("error fetching links", new Date());
-    console.error(e);
-    return undefined;
+    return (await response.json()) as HaloLinks;
   }
 }
 
-export async function getLinks(): Promise<HaloLinks | undefined> {
-  const [time, data] = getCache("links");
-  if (time && data) {
-    if (checkIsNextDay(time)) _getLinks().then();
-    return data as HaloLinks;
-  }
-  return await _getLinks();
-}
+export const halo = new Halo(HALO_TOKEN as string, HALO_URL as string);

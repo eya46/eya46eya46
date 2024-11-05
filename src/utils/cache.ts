@@ -25,12 +25,11 @@ export function withCache(key: string, timeCheckers: TimeChecker | TimeChecker[]
     const originalMethod = descriptor.value as (...args: any[]) => Promise<T>;
 
     descriptor.value = async function (...args: any[]): Promise<T> {
-      const currentTime = Date.now();
       const cachedData = getCache(key);
 
       if (cachedData.length > 0) {
         // 有缓存
-        if (timeCheckers.every((check) => check((currentTime - cachedData[0]) as number))) {
+        if (timeCheckers.every((check) => check(cachedData[0] as number))) {
           // 时间符合要求，返回缓存数据
           return cachedData[1] as T;
         } else {

@@ -26,16 +26,15 @@ export function withCache(key: string, timeCheckers: TimeChecker | TimeChecker[]
 
     descriptor.value = async function (...args: any[]): Promise<T> {
       const cachedData = getCache(key);
-
       if (cachedData.length > 0) {
         // 有缓存
-        if (timeCheckers.every((check) => check(cachedData[0] as number))) {
-          // 时间符合要求，返回缓存数据
-          return cachedData[1] as T;
-        } else {
+        if (timeCheckers.some((check) => check(cachedData[0] as number))) {
           // 时间不符合要求，异步更新缓存
           originalMethod.apply(this, args).then((result) => setCache(key, result));
           return cachedData[1] as T; // 返回旧数据
+        } else {
+          // 时间符合要求，返回缓存数据
+          return cachedData[1] as T;
         }
       } else {
         // 没有缓存，调用原函数并缓存结果

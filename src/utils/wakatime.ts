@@ -18,7 +18,7 @@ class Wakatime {
   @withCatch
   async getAllData(): Promise<AllTimeSinceToday | undefined> {
     const response = await fetch(
-      `https://wakatime.com/api/v1/users/current/all_time_since_today?api_key=${this.apiKey}`,
+      `https://wakatime.com/api/v1/users/current/all_time_since_today?api_key=${this.apiKey}`
     );
     return (await response.json()).data as AllTimeSinceToday;
   }

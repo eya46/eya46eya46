@@ -3,7 +3,7 @@ import type { AllTimeSinceToday, Last7Data, NowData, ProgramLanguage } from "./w
 import { withCache } from "./cache.ts";
 import { withCatch } from "./funcTool.ts";
 
-const WAKATIME_TOKEN = import.meta.env.WAKATIME_API;
+const WAKATIME_TOKEN = import.meta.env.WAKATIME_TOKEN;
 
 if (!WAKATIME_TOKEN) throw new Error("WAKATIME_TOKEN is not defined");
 

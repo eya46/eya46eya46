@@ -3,7 +3,7 @@
 > .env
 
 ```env
-WAKATIME_API=
+WAKATIME_TOKEN=
 HALO_URL=
 HALO_TOKEN=
 ```

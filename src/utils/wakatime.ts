@@ -3,9 +3,9 @@ import type { AllTimeSinceToday, Last7Data, NowData, ProgramLanguage } from "./w
 import { withCache } from "./cache.ts";
 import { withCatch } from "./funcTool.ts";
 
-const WAKATIME_API = import.meta.env.WAKATIME_API;
+const WAKATIME_TOKEN = import.meta.env.WAKATIME_API;
 
-if (!WAKATIME_API) throw new Error("WAKATIME_API is not defined");
+if (!WAKATIME_TOKEN) throw new Error("WAKATIME_TOKEN is not defined");
 
 class Wakatime {
   private readonly apiKey: string;
@@ -50,4 +50,4 @@ class Wakatime {
   }
 }
 
-export const wakatime = new Wakatime(WAKATIME_API as string);
+export const wakatime = new Wakatime(WAKATIME_TOKEN as string);

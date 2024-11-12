@@ -5,10 +5,13 @@
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "check": "astro check",
+    "build": "astro build",
     "preview": "astro preview --host 0.0.0.0",
     "astro": "astro",
-    "format": "prettier --write ./"
+    "format": "prettier --write ./",
+    "serve": "node ./dist/server/entry.mjs",
+    "serve:build": "npm run build && npm run serve"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

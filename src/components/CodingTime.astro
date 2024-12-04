@@ -38,12 +38,12 @@ const allDataTime = getCacheUpdateTime("all_time_since_today");
       <div class="p-3 bg-gray-300 bg-opacity-50 rounded-xl">
         {last7Days.languages.slice(0, 10).map((item) =>
           item.total_seconds > 60 * 30 ? (
-            <div class="text-base flex">
+            <div class="text-base flex space-y-0.5">
               <span
-                class="w-28 select-none text-gray-500"
+                class="w-28 select-none text-gray-500 stroke-red-900"
                 style={colorData[item.name] ? `color: ${colorData[item.name]}` : null}
               >
-                {item.name}:
+                <span class="hover:bg-gray-400 hover:p-1 duration-150 rounded">{item.name}:</span>
               </span>
               <span class="underline">{item.text}</span>
             </div>

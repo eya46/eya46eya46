@@ -7,6 +7,10 @@ const WAKATIME_TOKEN = import.meta.env.WAKATIME_TOKEN;
 
 if (!WAKATIME_TOKEN) throw new Error("WAKATIME_TOKEN is not defined");
 
+const defaultColorData = {
+  "Vue.js": "#41b883",
+};
+
 class Wakatime {
   private readonly apiKey: string;
 
@@ -46,7 +50,7 @@ class Wakatime {
     data.forEach((item) => {
       languages[item["name"]] = item["color"];
     });
-    return languages;
+    return { ...languages, ...defaultColorData };
   }
 }
 

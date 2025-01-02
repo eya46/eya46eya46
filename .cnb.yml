@@ -2,6 +2,8 @@ m*:
   tag_push:
     - services:
         - docker
+      runner:
+        cpus: 4
       imports: https://cnb.cool/eya46/eya46eya46secrets/-/blob/main/envs.yml
       stages:
         - name: Show Info

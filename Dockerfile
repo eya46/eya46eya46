@@ -1,6 +1,15 @@
 FROM node:22-alpine
-LABEL authors="eya46"
 
+WORKDIR /app
+COPY package.json ./
+RUN npm install --omit=dev
+
+COPY . .
+RUN npm run build
+
+
+FROM node:22-alpine
+LABEL authors="eya46"
 WORKDIR /app
 
 ENV HOST "0.0.0.0"
@@ -8,12 +17,8 @@ ENV WAKATIME_TOKEN ""
 ENV HALO_URL ""
 ENV HALO_TOKEN ""
 
-COPY package.json ./
-RUN npm install --omit=dev
-
-COPY . .
-RUN npm run build
-RUN npm cache clean --force
+COPY --from=0 /app/dist /app/dist
+COPY --from=0 /app/node_modules /app/node_modules
 
 EXPOSE 4321
-CMD ["npm", "run", "serve"]
+CMD ["node", "dist/server/entry.mjs"]

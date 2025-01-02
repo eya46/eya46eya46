@@ -1,0 +1,30 @@
+master:
+  push:
+    - services:
+        - docker
+      imports: https://cnb.cool/eya46/eya46eya46secrets/-/blob/main/envs.yml
+      stages:
+        - name: Docker Login
+          script: docker login -u ${CNB_TOKEN_USER_NAME} -p "${CNB_TOKEN}" ${CNB_DOCKER_REGISTRY}
+        - name: Docker Build
+          script: docker build -t ${CNB_DOCKER_REGISTRY}/${CNB_APP_NAME}:${CNB_APP_VERSION} .
+        - name: Docker Push
+          script: docker push ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
+        - name: SSH And Run
+          image: tencentcom/ssh
+          imports: https://cnb.cool/eya46/eya46eya46secrets/-/blob/main/ssh.yml
+          settings:
+            host: ${SSH_HOST}
+            port: ${SSH_PORT}
+            username: ${SSH_USERNAME}
+            key: ${SSH_KEY}
+            passphrase: ${SSH_PASSPHRASE}
+          script:
+            - docker pull ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
+            - docker stop ${CNB_REPO_SLUG_LOWERCASE} || true
+            - docker rm ${CNB_REPO_SLUG_LOWERCASE} || true
+            - |
+              docker run -d --name ${CNB_REPO_SLUG_LOWERCASE} -p ${OUTER_PORT}:${PORT} \
+              -e WAKATIME_TOKEN=${WAKATIME_TOKEN} -e HALO_URL=${HALO_URL} -e HALO_TOKEN=${HALO_TOKEN} \
+              ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
+

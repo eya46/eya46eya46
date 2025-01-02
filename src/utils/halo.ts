@@ -3,12 +3,7 @@ import type { HaloLinks, HaloPosts } from "./haloType.ts";
 import { checkIsNextDay } from "./date.ts";
 import { withCache } from "./cache.ts";
 import { withCatch } from "./funcTool.ts";
-
-const HALO_URL: string | undefined = import.meta.env.HALO_URL;
-const HALO_TOKEN: string | undefined = import.meta.env.HALO_TOKEN;
-
-if (!HALO_URL) throw new Error("HALO_URL is not defined");
-if (!HALO_TOKEN) throw new Error("HALO_TOKEN is not defined");
+import { HALO_TOKEN, HALO_URL } from "astro:env/server";
 
 class Halo {
   private readonly token: string;

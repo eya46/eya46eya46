@@ -2,10 +2,7 @@ import { checkIsNextDay, checkIsNextHour } from "./date";
 import type { AllTimeSinceToday, Last7Data, NowData, ProgramLanguage } from "./wakatimeType.ts";
 import { withCache } from "./cache.ts";
 import { withCatch } from "./funcTool.ts";
-
-const WAKATIME_TOKEN = import.meta.env.WAKATIME_TOKEN;
-
-if (!WAKATIME_TOKEN) throw new Error("WAKATIME_TOKEN is not defined");
+import { WAKATIME_TOKEN } from "astro:env/server";
 
 const defaultColorData = {
   "Vue.js": "#41b883",

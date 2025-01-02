@@ -1,0 +1,13 @@
+services:
+  eya46eya46:
+    environment:
+      - WAKATIME_TOKEN=
+      - HALO_URL=
+      - HALO_TOKEN=
+      - HOST=0.0.0.0
+    ports:
+      - "4321:4321"
+    container_name: eya46eya46
+    network_mode: host
+    restart: always
+    image: eya46/eya46eya46:latest

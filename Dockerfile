@@ -13,7 +13,7 @@ RUN npm install --omit=dev
 
 COPY . .
 RUN npm run build
-
+RUN npm cache clean --force
 
 EXPOSE 4321
 CMD ["npm", "run", "serve"]

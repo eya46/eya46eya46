@@ -2,9 +2,6 @@ m*:
   tag_push:
     - services:
         - docker
-      docker:
-        volumes:
-          - /root/.npm:copy-on-write
       imports: https://cnb.cool/eya46/eya46eya46secrets/-/blob/main/envs.yml
       stages:
         - name: Show Info

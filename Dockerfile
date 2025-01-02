@@ -9,8 +9,8 @@ ENV HALO_URL ""
 ENV HALO_TOKEN ""
 
 RUN npm install -g pnpm
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod
+COPY package.json ./
+RUN pnpm install --prod
 
 COPY . .
 RUN pnpm build

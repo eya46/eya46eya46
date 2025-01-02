@@ -1,5 +1,5 @@
-master:
-  push:
+m*:
+  tag_push:
     - services:
         - docker
       imports: https://cnb.cool/eya46/eya46eya46secrets/-/blob/main/envs.yml

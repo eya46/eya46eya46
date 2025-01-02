@@ -21,9 +21,6 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: eya46/eya46eya46
-          tags: |
-            type=semver,pattern={{version}}
-            type=schedule,pattern={{date 'YYYYMMDD-hhmmss' tz='Asia/Shanghai'}}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -37,3 +34,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

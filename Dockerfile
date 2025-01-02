@@ -8,13 +8,12 @@ ENV WAKATIME_TOKEN ""
 ENV HALO_URL ""
 ENV HALO_TOKEN ""
 
-RUN npm install -g pnpm
 COPY package.json ./
-RUN pnpm install
+RUN npm install --omit=dev
 
 COPY . .
-RUN pnpm build
+RUN npm run build
 
 
 EXPOSE 4321
-CMD ["pnpm", "serve"]
+CMD ["npm", "run", "serve"]

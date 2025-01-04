@@ -11,6 +11,7 @@ export default defineConfig({
   output: "server",
   server: {
     port: 4321,
+    // eslint-disable-next-line no-undef
     host: process.env.HOST || "0.0.0.0",
   },
   adapter: node({
@@ -19,8 +20,11 @@ export default defineConfig({
   vite: {
     build: {
       rollupOptions: {
-        external: ["sharp"],
+        // external: ["sharp"],
       },
+    },
+    ssr: {
+      noExternal: true
     },
   },
   env: {

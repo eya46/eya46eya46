@@ -16,7 +16,9 @@ m*:
         - name: Docker Build
           script: docker build -t ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest .
         - name: Docker Push
-          script: docker push ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
+          script: | 
+            docker push ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
+            docker push ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:${CNB_BRANCH}
         - name: SSH And Run
           imports: https://cnb.cool/eya46/eya46eya46secrets/-/blob/main/ssh.yml
           image: tencentcom/ssh

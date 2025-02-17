@@ -4,7 +4,10 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install --omit=dev
 COPY . .
-RUN npm run build
+RUN apk add --no-cache git
+RUN export VERSION=$(node -p "require('./package.json').version") && \
+    export GIT_HASH=$(git rev-parse --short HEAD) && \
+    npm run build
 
 
 FROM node:lts-alpine
@@ -16,9 +19,6 @@ RUN apk add --no-cache tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/local
     && apk del tzdata
 
 ENV HOST="0.0.0.0"
-ENV WAKATIME_TOKEN=""
-ENV HALO_URL=""
-ENV HALO_TOKEN=""
 
 COPY --from=0 /app/dist /app/dist
 

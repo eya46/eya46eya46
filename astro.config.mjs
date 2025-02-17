@@ -24,7 +24,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      noExternal: true
+      noExternal: true,
     },
   },
   env: {
@@ -40,6 +40,18 @@ export default defineConfig({
       HALO_TOKEN: envField.string({
         context: "server",
         access: "secret",
+      }),
+      VERSION: envField.string({
+        context: "client",
+        access: "public",
+        optional: true,
+        default: "version",
+      }),
+      GIT_HASH: envField.string({
+        context: "client",
+        access: "public",
+        optional: true,
+        default: "git-hash",
       }),
     },
   },

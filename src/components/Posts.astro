@@ -23,7 +23,7 @@ const postsUpdateTime = getCacheUpdateTime("posts");
     {
       posts.items
         .filter((item) => {
-          return item.post?.kind === "Post";
+          return item.post?.kind === "Post" && item.post.spec.publish;
         })
         .slice(0, 5)
         .map((item) => (

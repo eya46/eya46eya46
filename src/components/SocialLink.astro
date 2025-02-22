@@ -1,7 +1,11 @@
 ---
+import { Image } from "astro:assets";
+import { type ImageMetadata } from "astro";
+import { Link } from "../icons";
+
 interface Props {
   href?: string;
-  icon: string;
+  icon: ImageMetadata;
   name: string;
 }
 
@@ -9,7 +13,7 @@ const { href, icon, name } = Astro.props;
 ---
 
 <div class="flex items-center space-x-2 my-2">
-  <img alt={name} class="size-8 select-none" src={icon} />
+  <Image alt={name} class="size-8 select-none" src={icon} />
 
   <p class="my-0 font-semibold select-all">
     {name}
@@ -18,7 +22,7 @@ const { href, icon, name } = Astro.props;
     href ? (
       <a class="hover:underline underline-offset-4 text-sky-800 font-semibold" href={href} target="_blank">
         <slot />
-        {!href ? null : <img alt={`前往${name}`} class="inline" src="/link.svg" />}
+        {!href ? null : <Image alt={`前往${name}`} class="inline" src={Link} />}
       </a>
     ) : (
       <p class="text-sky-800 font-semibold">

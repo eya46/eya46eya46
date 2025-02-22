@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, passthroughImageService } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 
 import node from "@astrojs/node";
@@ -26,6 +26,9 @@ export default defineConfig({
     ssr: {
       noExternal: true,
     },
+  },
+  image:{
+    service: passthroughImageService(),
   },
   env: {
     schema: {

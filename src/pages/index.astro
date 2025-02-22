@@ -10,6 +10,8 @@ import { formatDate } from "../utils/date";
 import Posts from "../components/Posts.astro";
 import Blogroll from "../components/Blogroll.astro";
 import CodingTime from "../components/CodingTime.astro";
+import { Image } from "astro:assets";
+import { Avatar, BiliBili, Email, GitHub, QQ } from "../icons";
 
 const [data, last7Days, nowData, colorData, posts, links] = await Promise.all([
   wakatime.getAllData(),
@@ -24,10 +26,10 @@ const [data, last7Days, nowData, colorData, posts, links] = await Promise.all([
 <Layout title="eya46-个人学习主页">
   <div class="space-y-5">
     <div class="flex items-center mt-3 select-none">
-      <img
+      <Image
         alt="eya46 avator"
         class="rounded-full mr-3 size-28 hover:rotate-360 hover:scale-150 duration-500 transform-gpu"
-        src="/avator.jpg"
+        src={Avatar}
       />
       <div>
         <h2 class="font-semibold text-2xl">eya46</h2>
@@ -43,12 +45,12 @@ const [data, last7Days, nowData, colorData, posts, links] = await Promise.all([
     <div class="space-y-5">
       <Box>
         <H2>联系</H2>
-        <SocialLink href="https://github.com/eya46" icon="/github.svg" name="Github"> eya46</SocialLink>
-        <SocialLink href="https://space.bilibili.com/19559365" icon="/bilibili.svg" name="Bilibili"> eya46</SocialLink>
-        <SocialLink icon="/qq.svg" name="QQ">
+        <SocialLink href="https://github.com/eya46" icon={GitHub} name="Github"> eya46</SocialLink>
+        <SocialLink href="https://space.bilibili.com/19559365" icon={BiliBili} name="Bilibili"> eya46</SocialLink>
+        <SocialLink icon={QQ} name="QQ">
           <span class="select-all"> 644310932 </span>
         </SocialLink>
-        <SocialLink icon="/email.svg" name="Email">
+        <SocialLink icon={Email} name="Email">
           <span class="select-all"> admin@eya46.com </span>
         </SocialLink>
       </Box>

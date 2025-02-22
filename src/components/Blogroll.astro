@@ -5,6 +5,7 @@ import Link from "./Link.astro";
 import { formatDateTillDay } from "../utils/date";
 import { getCacheUpdateTime } from "../utils/cache";
 import H2Title from "./H2Title.astro";
+import { Icon404 } from "../icons";
 
 interface Props {
   links: HaloLinks;
@@ -28,6 +29,8 @@ const linksUpdateTime = getCacheUpdateTime("links");
           <img
             alt={item.spec.displayName}
             class="rounded-full mr-3 size-14 hover:rotate-360 hover:scale-150 duration-500 transform-gpu"
+            loading="lazy"
+            onerror={`this.src = "${Icon404.src}"`}
             src={item.spec.logo}
           />
           <div class="">

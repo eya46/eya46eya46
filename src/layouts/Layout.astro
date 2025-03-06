@@ -3,6 +3,7 @@ import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import GitHash from "../components/GitHash.astro";
 import Version from "../components/Version.astro";
 import { Avatar } from "../icons";
+import FooterDiv from "../components/FooterDiv.astro";
 
 interface Props {
   title: string;
@@ -27,7 +28,7 @@ const { title } = Astro.props;
       <slot />
     </main>
     <footer class="w-full h-8">
-      <div class="max-width mx-auto py-1 text-sm flex flex-wrap justify-center space-x-1.5">
+      <FooterDiv>
         <a class="text-gray-500 hover:underline" href="https://beian.miit.gov.cn/" target="_blank">
           湘ICP备2023033688号-1
         </a>
@@ -37,8 +38,8 @@ const { title } = Astro.props;
         <a class="text-gray-500 hover:underline" href="https://icp.gov.moe/?keyword=eya46.com" target="_blank">
           萌ICP备20228855号
         </a>
-      </div>
-      <div class="max-width mx-auto py-1 text-sm flex flex-wrap justify-center space-x-1.5">
+      </FooterDiv>
+      <FooterDiv>
         <a
           class="text-gray-500 hover:underline"
           href="https://travel.moe/go.html?travel=on"
@@ -60,7 +61,12 @@ const { title } = Astro.props;
             ( <GitHash /> )
           </span>
         </span>
-      </div>
+      </FooterDiv>
+      <FooterDiv>
+        <span>
+          © 2020 - {new Date().getFullYear()} eya46 All rights reserved
+        </span>
+      </FooterDiv>
     </footer>
   </body>
 

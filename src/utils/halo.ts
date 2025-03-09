@@ -1,5 +1,5 @@
 import urlJoin from "url-join";
-import type { HaloLinks, HaloPosts } from "./haloType.ts";
+import type { Content, HaloLinks, HaloPosts } from "./haloType.ts";
 import { checkIsNextDay } from "./date.ts";
 import { withCache } from "./cache.ts";
 import { withCatch } from "./funcTool.ts";
@@ -25,6 +25,17 @@ class Halo {
       },
     });
     return (await response.json()) as HaloPosts;
+  }
+
+  @withCache("content", checkIsNextDay)
+  @(withCatch<Content>)
+  async getContent(name: string): Promise<Content | undefined> {
+    const response = await fetch(urlJoin(this.api, `/api.console.halo.run/v1alpha1/posts/${name}/release-content`), {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+    return (await response.json()) as Content;
   }
 
   @withCache("links", checkIsNextDay)

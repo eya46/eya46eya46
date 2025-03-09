@@ -40,4 +40,3 @@ m*:
                 -e WAKATIME_TOKEN=${WAKATIME_TOKEN} -e HALO_URL=${HALO_URL} -e HALO_TOKEN=${HALO_TOKEN} \
                 --memory ${MEMORY} --restart always \
                 ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
-

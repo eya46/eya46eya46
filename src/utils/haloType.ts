@@ -213,3 +213,10 @@ export interface Spec {
   logo: string;
   description?: string;
 }
+
+export interface Content {
+  snapshotName: string;
+  raw: string;
+  content: string;
+  rawType: string;
+}

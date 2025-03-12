@@ -15,7 +15,7 @@ class Wakatime {
     this.apiKey = apiKey;
   }
 
-  @withCache("all_time_since_today", checkIsNextDay)
+  @withCache("all_time_since_today", [checkIsNextDay, checkIsNextHour])
   @withCatch
   async getAllData(): Promise<AllTimeSinceToday | undefined> {
     const response = await fetch(
@@ -24,7 +24,7 @@ class Wakatime {
     return (await response.json()).data as AllTimeSinceToday;
   }
 
-  @withCache("last_7_days", checkIsNextDay)
+  @withCache("last_7_days", [checkIsNextDay, checkIsNextHour])
   @withCatch
   async getLast7Data(): Promise<Last7Data | undefined> {
     const response = await fetch(`https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key=${this.apiKey}`);
@@ -38,7 +38,7 @@ class Wakatime {
     return (await response.json()) as NowData;
   }
 
-  @withCache("languages", checkIsNextDay)
+  @withCache("languages", [checkIsNextDay, checkIsNextHour])
   @withCatch
   async getProgramLanguageData(): Promise<ProgramLanguage | undefined> {
     const response = await fetch(`https://wakatime.com/api/v1/program_languages?api_key=${this.apiKey}`);

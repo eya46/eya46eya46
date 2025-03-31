@@ -35,7 +35,7 @@ const allDataTime = getCacheUpdateTime("all_time_since_today");
   }
   {
     !last7Days || last7Days.languages.length === 0 || !colorData ? null : (
-      <div class="bg-opacity-50 rounded-xl bg-gray-300 p-3">
+      <div class="rounded-xl bg-gray-300/50 p-3">
         {last7Days.languages.slice(0, 10).map((item) =>
           item.total_seconds > 60 * 30 ? (
             <div class="flex space-y-0.5 text-base">

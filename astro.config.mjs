@@ -1,14 +1,14 @@
 // @ts-check
 import { defineConfig, envField, passthroughImageService } from "astro/config";
-import tailwind from "@astrojs/tailwind";
 
 import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.eya46.com",
-  integrations: [tailwind(), sitemap()],
+  integrations: [sitemap()],
   output: "server",
   server: {
     port: 4321,
@@ -28,6 +28,7 @@ export default defineConfig({
       noExternal: true,
       // external: ["sharp"],
     },
+    plugins: [tailwindcss()],
   },
   image: {
     service: passthroughImageService(),

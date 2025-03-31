@@ -19,7 +19,7 @@ const postsUpdateTime = getCacheUpdateTime("posts");
 
 <div>
   <H2Title timestamp={postsUpdateTime} title="文章" />
-  <div class="space-y-2 mt-2">
+  <div class="mt-2 space-y-2">
     {
       posts.items
         .filter((item) => {
@@ -33,19 +33,19 @@ const postsUpdateTime = getCacheUpdateTime("posts");
                 {formatDateTillHour(item.post.spec.publishTime)}
               </p>
 
-              <p class="text-base hover:text-sky-700 flex items-center">
+              <p class="flex items-center text-base hover:text-sky-700">
                 <a class="flex items-center" href={urlJoin(halo.url, item.post.status.permalink)} target="_blank">
-                  <span class="block truncate mr-2 sm:max-w-none max-w-40">{item.post.spec.title}</span>
+                  <span class="mr-2 block max-w-40 truncate sm:max-w-none">{item.post.spec.title}</span>
                   <Image alt={`前往${item.post.spec.title}`} src={Link} />
                 </a>
               </p>
-              <div class="pl-2 mt-2">
+              <div class="mt-2 pl-2">
                 {!item.stats || !(item.stats.visit > 0 || item.stats.approvedComment > 0) ? null : (
-                  <div class="text-xs flex space-x-3">
+                  <div class="flex space-x-3 text-xs">
                     {!item.stats.visit ? null : (
                       <div class="flex">
                         <span class="w-10 select-none">阅读:</span>
-                        <span class="text-gray-500 blo">{item.stats.visit}</span>
+                        <span class="blo text-gray-500">{item.stats.visit}</span>
                       </div>
                     )}
                     {!item.stats.approvedComment ? null : (
@@ -57,12 +57,12 @@ const postsUpdateTime = getCacheUpdateTime("posts");
                   </div>
                 )}
                 {item.categories.length > 0 ? (
-                  <div class="mt-2 text-xs flex space-x-0.5">
+                  <div class="mt-2 flex space-x-0.5 text-xs">
                     <span class="w-10 select-none">分类:</span>
                     <div class="with-comma">
                       {item.categories.map((category) => (
                         <a
-                          class="text-gray-500 with-comma hover:underline"
+                          class="with-comma text-gray-500 hover:underline"
                           href={urlJoin(halo.url, "categories", category.spec.slug)}
                         >
                           {category.spec.displayName}
@@ -72,12 +72,12 @@ const postsUpdateTime = getCacheUpdateTime("posts");
                   </div>
                 ) : null}
                 {item.tags.length < 1 ? null : (
-                  <div class="mt-2 text-xs flex space-x-0.5">
+                  <div class="mt-2 flex space-x-0.5 text-xs">
                     <span class="w-10 select-none">标签:</span>
                     <div class="with-comma">
                       {item.tags.map((tag) => (
                         <a
-                          class="text-gray-500 with-comma hover:underline"
+                          class="with-comma text-gray-500 hover:underline"
                           href={urlJoin(halo.url, "tags", tag.spec.slug)}
                         >
                           {tag.spec.displayName}

@@ -12,7 +12,7 @@ interface Props {
 const { href, icon, name } = Astro.props;
 ---
 
-<div class="flex items-center space-x-2 my-2">
+<div class="my-2 flex items-center space-x-2">
   <Image alt={name} class="size-8 select-none" src={icon} />
 
   <p class="my-0 font-semibold select-all">
@@ -20,12 +20,12 @@ const { href, icon, name } = Astro.props;
   </p>
   {
     href ? (
-      <a class="hover:underline underline-offset-4 text-sky-800 font-semibold" href={href} target="_blank">
+      <a class="font-semibold text-sky-800 underline-offset-4 hover:underline" href={href} target="_blank">
         <slot />
         {!href ? null : <Image alt={`前往${name}`} class="inline" src={Link} />}
       </a>
     ) : (
-      <p class="text-sky-800 font-semibold">
+      <p class="font-semibold text-sky-800">
         <slot />
       </p>
     )

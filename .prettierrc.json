@@ -6,9 +6,6 @@
   "singleQuote": false,
   "printWidth": 121,
   "trailingComma": "es5",
-  "plugins": [
-    "prettier-plugin-astro",
-    "prettier-plugin-tailwindcss"
-  ],
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
   "endOfLine": "lf"
 }

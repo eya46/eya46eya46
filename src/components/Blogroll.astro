@@ -22,13 +22,13 @@ const linksUpdateTime = getCacheUpdateTime("links");
   {
     links.items.map((item) => (
       <Box>
-        <div class="flex text-base relative">
+        <div class="relative flex text-base">
           <p class="absolute right-1 text-sm text-gray-500 select-none">
             {formatDateTillDay(item.metadata.creationTimestamp)}
           </p>
           <img
             alt={item.spec.displayName}
-            class="rounded-full mr-3 size-14 hover:rotate-360 hover:scale-150 duration-500 transform-gpu"
+            class="mr-3 size-14 transform-gpu rounded-full duration-500 hover:scale-150 hover:rotate-360"
             loading="lazy"
             onerror={`this.src = "${Icon404.src}"`}
             src={item.spec.logo}

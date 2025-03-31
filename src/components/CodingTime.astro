@@ -19,7 +19,7 @@ const allDataTime = getCacheUpdateTime("all_time_since_today");
 <div class="space-y-0.5">
   {
     !data ? null : (
-      <div class="text-base flex">
+      <div class="flex text-base">
         <span class="w-28 select-none">总编码时间:</span>
         <span class="underline">{data.text}</span>
       </div>
@@ -27,7 +27,7 @@ const allDataTime = getCacheUpdateTime("all_time_since_today");
   }
   {
     !last7Days ? null : (
-      <div class="text-base flex">
+      <div class="flex text-base">
         <span class="w-28 select-none">七日编码时间:</span>
         <span class="underline underline-offset-2">{last7Days.categories[0]?.text ?? "无"}</span>
       </div>
@@ -35,15 +35,15 @@ const allDataTime = getCacheUpdateTime("all_time_since_today");
   }
   {
     !last7Days || last7Days.languages.length === 0 || !colorData ? null : (
-      <div class="p-3 bg-gray-300 bg-opacity-50 rounded-xl">
+      <div class="bg-opacity-50 rounded-xl bg-gray-300 p-3">
         {last7Days.languages.slice(0, 10).map((item) =>
           item.total_seconds > 60 * 30 ? (
-            <div class="text-base flex space-y-0.5">
+            <div class="flex space-y-0.5 text-base">
               <span
-                class="w-28 select-none text-gray-500 stroke-red-900"
+                class="w-28 stroke-red-900 text-gray-500 select-none"
                 style={colorData[item.name] ? `color: ${colorData[item.name]}` : null}
               >
-                <span class="hover:bg-gray-400 hover:p-1 duration-150 rounded">{item.name}:</span>
+                <span class="rounded duration-150 hover:bg-gray-400 hover:p-1">{item.name}:</span>
               </span>
               <span class="underline">{item.text}</span>
             </div>

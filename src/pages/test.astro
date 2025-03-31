@@ -7,19 +7,19 @@ import H2 from "../components/H2.astro";
 <Layout title="eya46 - 测试页">
   <Box>
     <H2>DEBUG</H2>
-    <div class="text-base flex">
+    <div class="flex text-base">
       <span class="w-28 select-none">RealIP:</span>
       <span class="underline underline-offset-2">{Astro.request.headers.get("eo-real-ip") || Astro.clientAddress}</span>
     </div>
-    <div class="text-base flex">
+    <div class="flex text-base">
       <span class="w-28 select-none">GEO:</span>
       <span class="underline underline-offset-4">{Astro.request.headers.get("eo-ip-country") || "无"}</span>
     </div>
-    <div class="text-base flex">
+    <div class="flex text-base">
       <span class="w-28 select-none">URL:</span>
       <span class="underline underline-offset-2">{Astro.request.url}</span>
     </div>
-    <div class="text-base flex">
+    <div class="flex text-base">
       <span class="w-28 select-none">UA:</span>
       <span class="underline underline-offset-2">{Astro.request.headers.get("user-agent")}</span>
     </div>

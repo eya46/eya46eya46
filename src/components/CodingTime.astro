@@ -29,12 +29,12 @@ const allDataTime = getCacheUpdateTime("all_time_since_today");
     !last7Days ? null : (
       <div class="text-base flex">
         <span class="w-28 select-none">七日编码时间:</span>
-        <span class="underline">{last7Days.categories[0].text}</span>
+        <span class="underline underline-offset-2">{last7Days.categories[0]?.text ?? "无"}</span>
       </div>
     )
   }
   {
-    !last7Days || !colorData ? null : (
+    !last7Days || last7Days.languages.length === 0 || !colorData ? null : (
       <div class="p-3 bg-gray-300 bg-opacity-50 rounded-xl">
         {last7Days.languages.slice(0, 10).map((item) =>
           item.total_seconds > 60 * 30 ? (

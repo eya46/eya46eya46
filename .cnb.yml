@@ -36,7 +36,7 @@ m*:
               - docker stop ${CNB_REPO_NAME} || true
               - docker rm ${CNB_REPO_NAME} || true
               - |
-                docker run -d --name ${CNB_REPO_NAME} -p ${OUTER_PORT}:${PORT} \
+                docker run -d --name ${CNB_REPO_NAME} -p ${OUTER}:${INNER} \
                 -e WAKATIME_TOKEN=${WAKATIME_TOKEN} -e HALO_URL=${HALO_URL} -e HALO_TOKEN=${HALO_TOKEN} \
                 --memory ${MEMORY} --restart always \
                 ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest

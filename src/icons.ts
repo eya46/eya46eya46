@@ -6,5 +6,6 @@ import QQ from "./assets/qq.svg";
 import Email from "./assets/email.svg";
 import Avatar from "./assets/avatar.jpg";
 import Icon404 from "./assets/404.svg";
+import Refresh from "./assets/refresh.svg";
 
-export { Image, GitHub, BiliBili, Link, QQ, Email, Avatar, Icon404 };
+export { Image, GitHub, BiliBili, Link, QQ, Email, Avatar, Icon404, Refresh };

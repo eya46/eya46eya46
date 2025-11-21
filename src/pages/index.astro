@@ -13,14 +13,21 @@ import CodingTime from "../components/CodingTime.astro";
 import { Image } from "astro:assets";
 import { Avatar, BiliBili, Email, GitHub, QQ } from "../icons";
 
-const [data, last7Days, nowData, colorData, posts, links] = await Promise.all([
+async function allSettledValues<T extends readonly Promise<unknown>[]>(promises: T) {
+  const results = await Promise.allSettled(promises);
+  return results.map((r) => (r.status === "fulfilled" ? r.value : undefined)) as {
+    [K in keyof T]: Awaited<T[K]> | undefined;
+  };
+}
+
+const [data, last7Days, nowData, colorData, posts, links] = await allSettledValues([
   wakatime.getAllData(),
   wakatime.getLast7Data(),
   wakatime.getNowData(),
   wakatime.getProgramLanguageData(),
   halo.getPosts(),
   halo.getLinks(),
-]);
+] as const);
 ---
 
 <Layout title="eya46-个人学习主页">

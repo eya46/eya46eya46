@@ -43,9 +43,9 @@ const allDataTime = getCacheUpdateTime("all_time_since_today");
                 class="w-28 stroke-red-900 text-gray-500 select-none"
                 style={colorData[item.name] ? `color: ${colorData[item.name]}` : null}
               >
-                <span class="rounded duration-150 hover:bg-gray-400 hover:p-1">{item.name}:</span>
+                <span class="rounded leading-none duration-150 hover:bg-gray-400 hover:p-1">{item.name}</span>
               </span>
-              <span class="underline">{item.text}</span>
+              <span class="self-center underline">{item.text}</span>
             </div>
           ) : null
         )}

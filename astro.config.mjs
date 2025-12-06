@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, envField, passthroughImageService } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 
 import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
@@ -19,19 +19,7 @@ export default defineConfig({
     mode: "standalone",
   }),
   vite: {
-    build: {
-      rollupOptions: {
-        // external: ["sharp"],
-      },
-    },
-    ssr: {
-      noExternal: true,
-      // external: ["sharp"],
-    },
     plugins: [tailwindcss()],
-  },
-  image: {
-    service: passthroughImageService(),
   },
   env: {
     schema: {

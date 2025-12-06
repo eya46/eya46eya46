@@ -1,7 +1,7 @@
 {
   "name": "eya46eya46",
   "type": "module",
-  "version": "0.1.0-beta.23",
+  "version": "0.1.0-beta.24",
   "pnpm": {
     "supportedArchitectures": {
       "os": [
@@ -13,7 +13,8 @@
       ]
     },
     "onlyBuiltDependencies": [
-      "esbuild"
+      "esbuild",
+      "sharp"
     ]
   },
   "scripts": {

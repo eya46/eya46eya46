@@ -19,6 +19,9 @@ export default defineConfig({
     mode: "standalone",
   }),
   vite: {
+    ssr: {
+      noExternal: true,
+    },
     plugins: [tailwindcss()],
   },
   env: {

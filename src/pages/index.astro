@@ -11,7 +11,7 @@ import Posts from "../components/Posts.astro";
 import Blogroll from "../components/Blogroll.astro";
 import CodingTime from "../components/CodingTime.astro";
 import { Image } from "astro:assets";
-import { Avatar, BiliBili, Email, GitHub, QQ } from "../icons";
+import { Avatar, BiliBili, Email, GitHub, QQ, Refresh } from "../icons";
 
 async function allSettledValues<T extends readonly Promise<unknown>[]>(promises: T) {
   const results = await Promise.allSettled(promises);
@@ -41,7 +41,8 @@ const [data, last7Days, nowData, colorData, posts, links] = await allSettledValu
           coding: {nowData ? nowData.data.categories[0]?.text || "无" : "未知"}
         </p>
         <p class="text-sm text-gray-400">
-          更新于{nowData ? formatDate(nowData.cached_at) : "未知"}
+          <Refresh class="inline size-[1rem] align-[-2.5px]" />
+          <span>{nowData ? formatDate(nowData.cached_at) : "未知"}</span>
         </p>
       </div>
     </div>

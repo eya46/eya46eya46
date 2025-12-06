@@ -15,7 +15,7 @@ const { timestamp, title } = Astro.props;
   {
     !timestamp ? null : (
       <span class="text-sm text-gray-500 select-none">
-        <Refresh class="inline size-[1rem] align-[-2.6px]" />
+        <Refresh class="inline size-[1rem] align-[-2.5px]" />
         <span>{formatDateTillHour(timestamp)}</span>
       </span>
     )

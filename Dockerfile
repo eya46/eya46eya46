@@ -2,12 +2,13 @@ FROM node:lts-alpine
 
 WORKDIR /app
 COPY package.json ./
-RUN npm install --omit=dev
+RUN npm install -g pnpm
+RUN pnpm i
 RUN apk add --no-cache git
 COPY . .
 RUN export VERSION=$(node -p "require('./package.json').version") && \
     export GIT_HASH=$(git rev-parse --short HEAD) && \
-    npm run build
+    pnpm build
 
 
 FROM node:lts-alpine

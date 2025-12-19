@@ -1,7 +1,7 @@
 {
   "name": "eya46eya46",
   "type": "module",
-  "version": "0.1.0-beta.24",
+  "version": "0.1.0-beta.25",
   "pnpm": {
     "supportedArchitectures": {
       "os": [
@@ -13,8 +13,7 @@
       ]
     },
     "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp"
+      "esbuild"
     ]
   },
   "scripts": {
@@ -34,7 +33,6 @@
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.16.4",
     "dayjs": "^1.11.19",
-    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.17",
     "url-join": "^5.0.0"
   },

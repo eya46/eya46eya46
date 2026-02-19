@@ -21,7 +21,7 @@ export function withCache(key: string, timeCheckers: TimeChecker | TimeChecker[]
     timeCheckers = [timeCheckers];
   }
 
-  return function <T>(target: object, propertyKey: string | symbol, descriptor: PropertyDescriptor): void {
+  return function <T>(_target: object, _propertyKey: string | symbol, descriptor: PropertyDescriptor): void {
     const originalMethod = descriptor.value as (...args: any[]) => Promise<T>;
 
     descriptor.value = async function (...args: any[]): Promise<T> {

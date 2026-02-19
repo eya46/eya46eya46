@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PostList from "../components/Posts.astro";
+import { halo } from "../utils/halo";
+
+const posts = await halo.getPosts().catch(() => undefined);
+---
+
+<Layout title="eya46-文章">
+  {!posts ? <p class="text-gray-500">暂无文章</p> : <PostList limit={null} posts={posts} />}
+</Layout>

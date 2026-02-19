@@ -1,5 +1,5 @@
 ---
-import type { AllTimeSinceToday, Last7Data, ProgramLanguage } from "../utils/wakatimeType";
+import type { AllTimeSinceToday, Last7Data, ProgramLanguage } from "../types/wakatime";
 import { getCacheUpdateTime } from "../utils/cache";
 import H2Title from "./H2Title.astro";
 
@@ -35,7 +35,7 @@ const allDataTime = getCacheUpdateTime("all_time_since_today");
   }
   {
     !last7Days || last7Days.languages.length === 0 || !colorData ? null : (
-      <div class="rounded-xl bg-gray-300/50 p-3">
+      <div class="rounded-xl border border-white/20 bg-white/15 p-3 shadow-sm backdrop-blur-lg">
         {last7Days.languages.slice(0, 10).map((item) =>
           item.total_seconds > 60 * 30 ? (
             <div class="flex space-y-0.5 text-base">
@@ -43,7 +43,9 @@ const allDataTime = getCacheUpdateTime("all_time_since_today");
                 class="w-28 stroke-red-900 text-gray-500 select-none"
                 style={colorData[item.name] ? `color: ${colorData[item.name]}` : null}
               >
-                <span class="rounded leading-none duration-150 hover:bg-gray-400 hover:p-1">{item.name}</span>
+                <span class="rounded px-1 py-0.5 leading-none transition-all duration-150 hover:bg-white/30 hover:shadow-sm">
+                  {item.name}
+                </span>
               </span>
               <span>{item.text}</span>
             </div>

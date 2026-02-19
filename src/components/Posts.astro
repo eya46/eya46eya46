@@ -1,5 +1,5 @@
 ---
-import type { HaloPosts } from "../utils/haloType";
+import type { HaloPosts } from "../types/halo";
 import Box from "../layouts/Box.astro";
 import { formatDateTillHour } from "../utils/date";
 import { getCacheUpdateTime } from "../utils/cache";
@@ -10,22 +10,24 @@ import { Link, Image } from "../icons";
 
 interface Props {
   posts: HaloPosts;
+  limit?: number | null;
+  moreHref?: string;
 }
 
-const { posts } = Astro.props;
+const { posts, limit = 5, moreHref } = Astro.props;
 
 const postsUpdateTime = getCacheUpdateTime("posts");
 ---
 
 <div>
-  <H2Title timestamp={postsUpdateTime} title="文章" />
+  <H2Title moreHref={moreHref} timestamp={postsUpdateTime} title="文章" />
   <div class="mt-2 space-y-2">
     {
       posts.items
         .filter((item) => {
           return item.post?.kind === "Post" && item.post.spec.publish;
         })
-        .slice(0, 5)
+        .slice(0, limit ?? undefined)
         .map((item) => (
           <Box>
             <div class="relative">

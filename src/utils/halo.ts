@@ -1,5 +1,5 @@
 import urlJoin from "url-join";
-import type { Content, HaloLinks, HaloPosts } from "./haloType.ts";
+import type { Content, HaloLinks, HaloPosts } from "../types/halo.ts";
 import { checkIsNextDay } from "./date.ts";
 import { withCache } from "./cache.ts";
 import { withCatch } from "./funcTool.ts";

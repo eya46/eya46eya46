@@ -1,5 +1,5 @@
 ---
-import type { HaloLinks } from "../utils/haloType";
+import type { HaloLinks } from "../types/halo";
 import Box from "../layouts/Box.astro";
 import Link from "./Link.astro";
 import { formatDateTillDay } from "../utils/date";
@@ -9,15 +9,16 @@ import { Icon404 } from "../icons";
 
 interface Props {
   links: HaloLinks;
+  moreHref?: string;
 }
 
-const { links } = Astro.props;
+const { links, moreHref } = Astro.props;
 
 links.items.sort(() => Math.random() - 0.5);
 const linksUpdateTime = getCacheUpdateTime("links");
 ---
 
-<H2Title timestamp={linksUpdateTime} title="友情链接" />
+<H2Title moreHref={moreHref} timestamp={linksUpdateTime} title="友情链接" />
 <div class="space-y-2">
   {
     links.items.map((item) => (
@@ -28,7 +29,7 @@ const linksUpdateTime = getCacheUpdateTime("links");
           </p>
           <img
             alt={item.spec.displayName}
-            class="mr-3 size-14 transform-gpu rounded-full avatar-twister"
+            class="avatar-twister mr-3 size-14 transform-gpu rounded-full"
             loading="lazy"
             onerror={`this.src = "${Icon404.src}"`}
             src={item.spec.logo}

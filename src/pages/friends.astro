@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Blogroll from "../components/Blogroll.astro";
+import { halo } from "../utils/halo";
+
+const links = await halo.getLinks().catch(() => undefined);
+---
+
+<Layout title="eya46-友链">
+  {!links ? <p class="text-gray-500">暂无友链</p> : <Blogroll links={links} />}
+</Layout>

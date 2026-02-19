@@ -1,0 +1,30 @@
+---
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  { href: "/", label: "首页" },
+  // { href: "/posts", label: "文章" },
+  // { href: "/friends", label: "友链" },
+  { href: "/status", label: "探针" },
+];
+---
+
+<nav
+  class="sticky top-0 z-50 mb-5 flex gap-1 overflow-x-auto scroll-smooth rounded-xl border border-white/20 bg-white/15 p-1 shadow-lg backdrop-blur-xl transition-transform duration-300 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  data-nav-sticky
+  transition:name="main-nav"
+>
+  {
+    navItems.map((item) => {
+      const isActive = pathname === item.href;
+      const cls = "shrink-0 rounded-lg px-4 py-1.5 text-center text-base font-medium transition-colors select-none";
+      return isActive ? (
+        <span class:list={[cls, "bg-white/50 text-gray-800 shadow-sm"]}>{item.label}</span>
+      ) : (
+        <a class:list={[cls, "text-gray-500 hover:bg-white/30 hover:text-gray-700"]} href={item.href}>
+          {item.label}
+        </a>
+      );
+    })
+  }
+</nav>

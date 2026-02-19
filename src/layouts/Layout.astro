@@ -4,6 +4,8 @@ import GitHash from "../components/GitHash.astro";
 import Version from "../components/Version.astro";
 import { Avatar } from "../icons";
 import FooterDiv from "../components/FooterDiv.astro";
+import Nav from "../components/Nav.astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -21,11 +23,15 @@ const { title } = Astro.props;
     <link href={Avatar.src} rel="icon" type="image/svg+xml" />
     <meta content={Astro.generator} name="generator" />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body class="bg-gradient-animated">
     <GoogleAnalytics />
     <main class="max-width mx-auto bg-gray-200/50 p-4 backdrop-blur-sm">
-      <slot />
+      <Nav />
+      <div>
+        <slot />
+      </div>
     </main>
     <footer class="my-1 w-full">
       <FooterDiv>
@@ -69,9 +75,37 @@ const { title } = Astro.props;
         </span>
       </FooterDiv>
     </footer>
-  </body>
+    <script>
+      // Nav sticky: 向下滚动隐藏，向上滚动显示
+      let lastScrollY = window.scrollY;
 
-  <style is:global>
+      document.addEventListener("astro:before-preparation", () => {
+        // 确保 nav 在截图时可见
+        const nav = document.querySelector("[data-nav-sticky]");
+        if (nav) nav.classList.remove("nav-hidden");
+      });
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          const nav = document.querySelector("[data-nav-sticky]");
+          if (!nav) return;
+          const currentY = window.scrollY;
+          if (currentY > lastScrollY && currentY > 60) {
+            nav.classList.add("nav-hidden");
+          } else {
+            nav.classList.remove("nav-hidden");
+          }
+          lastScrollY = currentY;
+        },
+        { passive: true }
+      );
+
+      document.addEventListener("astro:after-swap", () => {
+        lastScrollY = window.scrollY;
+      });
+    </script>
+  </body><style is:global>
     @import "tailwindcss";
 
     .max-width {
@@ -117,6 +151,10 @@ const { title } = Astro.props;
 
     .avatar-twister:hover {
       transform: scale(1.5) rotate(360deg);
+    }
+
+    .nav-hidden {
+      transform: translateY(-100%);
     }
   </style>
 </html>

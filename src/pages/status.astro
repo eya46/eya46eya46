@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ServerList from "../components/status/ServerList.vue";
+import { nezha } from "../utils/nezha";
+
+const preload = nezha.getData();
+---
+
+<Layout title="eya46-探针">
+  <ServerList client:load preload={preload} />
+</Layout>

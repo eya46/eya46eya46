@@ -5,6 +5,7 @@ services:
       - WAKATIME_TOKEN=${WAKATIME_TOKEN}
       - HALO_URL=${HALO_URL}
       - HALO_TOKEN=${HALO_TOKEN}
+      - NEZHA_HOST=${NEZHA_HOST}
       - HOST=0.0.0.0
     ports:
       - "4321:4321"

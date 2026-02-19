@@ -1,5 +1,5 @@
 import { checkIsNextDay, checkIsNextHour } from "./date";
-import type { AllTimeSinceToday, Last7Data, NowData, ProgramLanguage } from "./wakatimeType.ts";
+import type { AllTimeSinceToday, Last7Data, NowData, ProgramLanguage } from "../types/wakatime.ts";
 import { withCache } from "./cache.ts";
 import { withCatch } from "./funcTool.ts";
 import { WAKATIME_TOKEN } from "astro:env/server";

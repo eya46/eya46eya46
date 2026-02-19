@@ -5,19 +5,31 @@ import H2 from "./H2.astro";
 interface Props {
   timestamp?: number;
   title?: string;
+  moreHref?: string;
+  moreLabel?: string;
 }
 
-const { timestamp, title } = Astro.props;
+const { timestamp, title, moreHref, moreLabel } = Astro.props;
 ---
 
-<div class="flex items-baseline space-x-1.5">
-  {Astro.slots.has("default") ? <slot /> : <H2>{title}</H2>}
+<div class="flex items-baseline gap-x-1.5 overflow-hidden">
+  {Astro.slots.has("default") ? <slot /> : <H2 class="shrink-0">{title}</H2>}
   {
     !timestamp ? null : (
-      <span class="text-sm text-gray-500 select-none">
+      <span class="min-w-0 shrink overflow-hidden text-sm whitespace-nowrap text-gray-500 select-none">
         <Refresh class="inline size-[1rem] align-[-2.5px]" />
         <span>{formatDateTillHour(timestamp)}</span>
       </span>
+    )
+  }
+  {
+    !moreHref ? null : (
+      <a
+        class="ml-auto shrink-0 text-sm whitespace-nowrap text-blue-500 hover:underline hover:underline-offset-4"
+        href={moreHref}
+      >
+        {moreLabel ?? "查看全部"}
+      </a>
     )
   }
 </div>

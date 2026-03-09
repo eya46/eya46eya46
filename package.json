@@ -1,7 +1,7 @@
 {
   "name": "eya46eya46",
   "type": "module",
-  "version": "0.1.0-beta.26",
+  "version": "0.1.0-beta.27",
   "pnpm": {
     "supportedArchitectures": {
       "os": [
@@ -32,26 +32,26 @@
     "@astrojs/node": "^9.5.4",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/vue": "^5.1.4",
-    "@tailwindcss/vite": "^4.2.0",
-    "astro": "^5.17.3",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^5.18.0",
     "dayjs": "^1.11.19",
-    "tailwindcss": "^4.2.0",
+    "tailwindcss": "^4.2.1",
     "url-join": "^5.0.0",
-    "vue": "^3.5.28"
+    "vue": "^3.5.30"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
     "@eslint/js": "^9.39.2",
     "@types/node": "^24.10.13",
-    "@typescript-eslint/eslint-plugin": "^8.56.0",
-    "@typescript-eslint/parser": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^9.39.2",
     "eslint-plugin-astro": "^1.6.0",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.0",
-    "vite": "^7.3.1"
+    "typescript-eslint": "^8.56.1",
+    "vite": "^6.4.1"
   }
 }

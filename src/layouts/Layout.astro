@@ -2,7 +2,6 @@
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import GitHash from "../components/GitHash.astro";
 import Version from "../components/Version.astro";
-import { Avatar } from "../icons";
 import FooterDiv from "../components/FooterDiv.astro";
 import Nav from "../components/Nav.astro";
 import { ClientRouter } from "astro:transitions";
@@ -20,7 +19,7 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta content="eya46的主页" name="description" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <link href={Avatar.src} rel="icon" type="image/svg+xml" />
+    <link href="/favicon.jpg" rel="icon" type="image/jpeg" />
     <meta content={Astro.generator} name="generator" />
     <title>{title}</title>
     <ClientRouter />

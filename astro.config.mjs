@@ -32,6 +32,9 @@ export default defineConfig({
     },
     plugins: [tailwindcss()],
     server: {
+      watch: {
+        usePolling: true,
+      },
       proxy: {
         "/api/v1/ws/server": {
           target: `wss://${NEZHA_HOST}/`,
@@ -61,6 +64,16 @@ export default defineConfig({
       NEZHA_HOST: envField.string({
         context: "server",
         access: "secret",
+      }),
+      UPTIME_KUMA_URL: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+      UPTIME_KUMA_SLUG: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
       }),
       VERSION: envField.string({
         context: "client",

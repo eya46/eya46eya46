@@ -1,0 +1,13 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { fetchUptimeData } from "../utils/uptime";
+import UptimeList from "../components/uptime/UptimeList.vue";
+
+const uptimeData = await fetchUptimeData();
+---
+
+<Layout title="eya46-服务">
+  <div class="space-y-5">
+    <UptimeList client:load initialData={uptimeData} title={uptimeData?.config?.title || "服务状态"} />
+  </div>
+</Layout>

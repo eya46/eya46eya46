@@ -18,28 +18,30 @@ links.items.sort(() => Math.random() - 0.5);
 const linksUpdateTime = getCacheUpdateTime("links");
 ---
 
-<H2Title moreHref={moreHref} timestamp={linksUpdateTime} title="友情链接" />
-<div class="space-y-2">
-  {
-    links.items.map((item) => (
-      <Box>
-        <div class="relative flex text-base">
-          <p class="absolute right-1 text-sm text-gray-500 select-none">
-            {formatDateTillDay(item.metadata.creationTimestamp)}
-          </p>
-          <img
-            alt={item.spec.displayName}
-            class="avatar-twister mr-3 size-14 transform-gpu rounded-full"
-            loading="lazy"
-            onerror={`this.src = "${Icon404.src}"`}
-            src={item.spec.logo}
-          />
-          <div class="">
-            <Link href={item.spec.url} name={item.spec.displayName} />
-            <p class="text-gray-500">{item.spec.description || "暂无简介"}</p>
+<div>
+  <H2Title moreHref={moreHref} timestamp={linksUpdateTime} title="友情链接" />
+  <div class="mt-2 space-y-2">
+    {
+      links.items.map((item) => (
+        <Box>
+          <div class="relative flex text-base">
+            <p class="absolute right-1 text-sm text-gray-500 select-none">
+              {formatDateTillDay(item.metadata.creationTimestamp)}
+            </p>
+            <img
+              alt={item.spec.displayName}
+              class="avatar-twister mr-3 size-14 transform-gpu rounded-full"
+              loading="lazy"
+              onerror={`this.src = "${Icon404.src}"`}
+              src={item.spec.logo}
+            />
+            <div class="">
+              <Link href={item.spec.url} name={item.spec.displayName} />
+              <p class="text-gray-500">{item.spec.description || "暂无简介"}</p>
+            </div>
           </div>
-        </div>
-      </Box>
-    ))
-  }
+        </Box>
+      ))
+    }
+  </div>
 </div>

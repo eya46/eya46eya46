@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Box from "../layouts/Box.astro";
 import ServerList from "../components/status/ServerList.vue";
 import { nezha } from "../utils/nezha";
 
@@ -7,5 +8,11 @@ const preload = nezha.getData();
 ---
 
 <Layout title="eya46-探针">
-  <ServerList client:load preload={preload} />
+  <div class="space-y-5">
+    <Box showDecoration={false}>
+      <div class="mt-4">
+        <ServerList client:load preload={preload} />
+      </div>
+    </Box>
+  </div>
 </Layout>

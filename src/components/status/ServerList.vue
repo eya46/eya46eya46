@@ -63,11 +63,15 @@ function goBack() {
 
 <template>
   <div class="space-y-4">
-    <!-- 连接状态 -->
-    <div class="flex items-center gap-2 text-sm text-gray-500">
-      <span class="h-2 w-2 rounded-full" :class="connected ? 'bg-green-500' : 'bg-gray-400'"></span>
-      <span>{{ connected ? "已连接" : "连接中..." }}</span>
-      <span class="ml-auto text-gray-400">{{ updateTime }}</span>
+    <div class="-mt-4 flex items-baseline gap-x-1.5 overflow-hidden mb-4">
+      <h2 class="shrink-0 text-xl font-bold flex items-center">
+        <span class="mr-2 inline-block h-5 w-[4px] rounded-full bg-blue-500"></span>
+        探针状态
+      </h2>
+      <span class="ml-auto min-w-0 shrink overflow-hidden text-sm whitespace-nowrap text-gray-500 select-none flex items-center gap-1">
+        <span>{{ updateTime }}</span>
+        <span class="h-2 w-2 rounded-full" :class="connected ? 'bg-green-500' : 'bg-gray-400'"></span>
+      </span>
     </div>
 
     <!-- 概览卡片 -->

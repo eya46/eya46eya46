@@ -43,8 +43,10 @@ const { title } = Astro.props;
         right: 0px;
         width: 100px;
         height: 100%;
-        box-shadow: 0 0 10px #3b82f6, 0 0 5px #3b82f6;
-        opacity: 1.0;
+        box-shadow:
+          0 0 10px #3b82f6,
+          0 0 5px #3b82f6;
+        opacity: 1;
         transform: rotate(3deg) translate(0px, -4px);
       }
     </style>
@@ -52,6 +54,7 @@ const { title } = Astro.props;
   <body>
     <!-- 用 id 标识，并在 is:inline 脚本中处理它，不依赖 transition:persist 以免被框架重构 -->
     <div id="bg-anim" class="bg-gradient-animated fixed inset-0 -z-10" transition:persist></div>
+    <div id="nprogress" transition:persist style="display:none"><div class="bar"><div class="peg"></div></div></div>
     <GoogleAnalytics />
     <main class="max-width mx-auto bg-gray-200/50 p-4 backdrop-blur-sm">
       <Nav />
@@ -131,51 +134,72 @@ const { title } = Astro.props;
         lastScrollY = window.scrollY;
       });
 
-      // 简易 NProgress 进度条实现
-      let progressTimer: number | null = null;
-      let progressElement: HTMLElement | null = null;
-
       function startProgress() {
-        if (progressElement) return;
-        progressElement = document.createElement("div");
-        progressElement.id = "nprogress";
-        progressElement.innerHTML = '<div class="bar" style="width: 0%"><div class="peg"></div></div>';
-        document.body.appendChild(progressElement);
+        const el = document.getElementById("nprogress");
+        const bar = el?.querySelector(".bar") as HTMLElement;
+        if (!el || !bar) return;
+        if (el.dataset.running === "true") return;
+        el.dataset.running = "true";
+
+        bar.style.width = "0%";
+        el.style.display = "";
 
         let width = 0;
-        const bar = progressElement.querySelector(".bar") as HTMLElement;
-        
-        progressTimer = window.setInterval(() => {
+        const timer = window.setInterval(() => {
           if (width >= 90) return;
-          // 模拟进度增加
           width += (90 - width) * 0.1;
           bar.style.width = width + "%";
         }, 200);
+        el.dataset.timer = String(timer);
       }
 
       function stopProgress() {
-        if (progressTimer) {
-          clearInterval(progressTimer);
-          progressTimer = null;
+        const el = document.getElementById("nprogress");
+        const bar = el?.querySelector(".bar") as HTMLElement;
+        if (!el || !bar) return;
+
+        delete el.dataset.running;
+        const timerId = Number(el.dataset.timer);
+        if (timerId) {
+          clearInterval(timerId);
+          delete el.dataset.timer;
         }
-        if (progressElement) {
-          const bar = progressElement.querySelector(".bar") as HTMLElement;
-          if (bar) bar.style.width = "100%";
-          setTimeout(() => {
-            if (progressElement && progressElement.parentNode) {
-              progressElement.parentNode.removeChild(progressElement);
-            }
-            progressElement = null;
-          }, 200); // 等待动画完成
-        }
+
+        bar.style.width = "100%";
+        setTimeout(() => {
+          el.style.display = "none";
+        }, 300);
       }
 
-      // Astro View Transitions 路由钩子
       document.addEventListener("astro:before-preparation", () => {
         startProgress();
+        const main = document.querySelector("main") as HTMLElement | null;
+        if (main) {
+          main.style.transition = "opacity 0.15s";
+          main.style.opacity = "0.5";
+        }
       });
+
       document.addEventListener("astro:page-load", () => {
         stopProgress();
+        const main = document.querySelector("main") as HTMLElement | null;
+        if (main) {
+          main.style.opacity = "1";
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        const target = e.target as Element;
+        const link = target.closest("a[data-nav-link]");
+        if (!link) return;
+        const nav = link.closest("nav");
+        if (!nav) return;
+        nav.querySelectorAll("[data-nav-link]").forEach((el) => {
+          el.classList.remove("bg-white/50", "text-gray-800", "shadow-sm");
+          el.classList.add("text-gray-500");
+        });
+        link.classList.add("bg-white/50", "text-gray-800", "shadow-sm");
+        link.classList.remove("text-gray-500");
       });
 
       // 同步背景动画进度，防止 Astro View Transitions 重新插入 DOM 导致 CSS 动画重置

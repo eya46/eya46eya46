@@ -20,9 +20,9 @@ const navItems = [
       const isActive = pathname === item.href;
       const cls = "shrink-0 rounded-lg px-4 py-1.5 text-center text-base font-medium transition-colors select-none";
       return isActive ? (
-        <span class:list={[cls, "bg-white/50 text-gray-800 shadow-sm"]}>{item.label}</span>
+        <span class:list={[cls, "bg-white/50 text-gray-800 shadow-sm"]} data-nav-link>{item.label}</span>
       ) : (
-        <a class:list={[cls, "text-gray-500 hover:bg-white/30 hover:text-gray-700"]} href={item.href}>
+        <a class:list={[cls, "text-gray-500 hover:bg-white/30 hover:text-gray-700 active:scale-95"]} href={item.href} data-nav-link data-astro-prefetch="hover">
           {item.label}
         </a>
       );

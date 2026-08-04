@@ -47,7 +47,8 @@ class NezhaStatus {
       };
 
       this.ws.onerror = () => {
-        this.ws?.close();
+        // 不要在 onerror 里 close()，否则会递归触发 error
+        console.error("[nezha] WebSocket error");
       };
     };
 
@@ -67,4 +68,4 @@ class NezhaStatus {
   }
 }
 
-export const nezha = new NezhaStatus(`ws://${NEZHA_HOST}/api/v1/ws/server`);
+export const nezha = new NezhaStatus(`wss://${NEZHA_HOST}/api/v1/ws/server`);

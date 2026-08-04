@@ -203,14 +203,12 @@ const { title } = Astro.props;
       });
 
       // 同步背景动画进度，防止 Astro View Transitions 重新插入 DOM 导致 CSS 动画重置
-      if (!window.bgAnimationStartTime) {
-        window.bgAnimationStartTime = performance.now();
-      }
+      const bgAnimationStartTime = (window.bgAnimationStartTime ??= performance.now());
 
       function syncBgAnimation() {
         const bg = document.getElementById("bg-anim");
         if (bg) {
-          const elapsed = (performance.now() - window.bgAnimationStartTime) / 1000;
+          const elapsed = (performance.now() - bgAnimationStartTime) / 1000;
           // 使用负的 animation-delay 让动画快进到当前时间点
           bg.style.animationDelay = `-${elapsed}s`;
         }

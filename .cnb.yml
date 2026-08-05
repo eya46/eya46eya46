@@ -1,6 +1,7 @@
 master:
   push:
-    - services:
+    - imports: https://cnb.cool/eya46/eya46eya46secrets/-/blob/main/envs.yml
+      services:
         - docker
       runner:
         cpus: 4

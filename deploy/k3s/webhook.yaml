@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-webhook
+  labels:
+    app.kubernetes.io/name: deploy-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: deploy-webhook
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: deploy-webhook
+    spec:
+      serviceAccountName: deploy-webhook
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: webhook
+          image: node:24-alpine
+          imagePullPolicy: IfNotPresent
+          command: ["node", "/app/server.mjs"]
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+            - name: DEPLOY_PATH
+              value: /__deploy
+            - name: TARGET_DEPLOYMENT
+              value: eya46eya46
+            - name: TARGET_CONTAINER
+              value: app
+            - name: ALLOWED_IMAGE_REPOSITORY
+              value: docker.cnb.cool/eya46/eya46eya46
+            - name: ROLLOUT_TIMEOUT_MS
+              value: "210000"
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: NODE_EXTRA_CA_CERTS
+              value: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            - name: DEPLOY_WEBHOOK_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: deploy-webhook-secret
+                  key: token
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+          volumeMounts:
+            - name: script
+              mountPath: /app
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: script
+          configMap:
+            name: deploy-webhook-script
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deploy-webhook
+  labels:
+    app.kubernetes.io/name: deploy-webhook
+spec:
+  selector:
+    app.kubernetes.io/name: deploy-webhook
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

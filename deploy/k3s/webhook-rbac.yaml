@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: deploy-webhook
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: deploy-webhook
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    resourceNames: ["eya46eya46"]
+    verbs: ["get", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: deploy-webhook
+subjects:
+  - kind: ServiceAccount
+    name: deploy-webhook
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: deploy-webhook

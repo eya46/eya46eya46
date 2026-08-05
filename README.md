@@ -1,5 +1,7 @@
 ## eya46.com
 
+k3s 部署、滚动更新和 Webhook 配置见 [deploy/k3s/README.md](deploy/k3s/README.md)。
+
 > .env
 
 ```env

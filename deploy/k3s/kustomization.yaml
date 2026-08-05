@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: eya46eya46
+resources:
+  - namespace.yaml
+  - app.yaml
+  - webhook-rbac.yaml
+  - webhook.yaml
+  - ingress.yaml
+configMapGenerator:
+  - name: deploy-webhook-script
+    files:
+      - server.mjs=webhook/server.mjs

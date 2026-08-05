@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eya46eya46
+  labels:
+    app.kubernetes.io/name: eya46eya46
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 180
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: eya46eya46
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: eya46eya46
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: app
+          image: docker.cnb.cool/eya46/eya46eya46:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 4321
+          env:
+            - name: HOST
+              value: 0.0.0.0
+          envFrom:
+            - secretRef:
+                name: eya46eya46-env
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 2
+            timeoutSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 5"]
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eya46eya46
+  labels:
+    app.kubernetes.io/name: eya46eya46
+spec:
+  selector:
+    app.kubernetes.io/name: eya46eya46
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

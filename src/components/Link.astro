@@ -16,9 +16,13 @@ const { href, name } = Astro.props;
       </p>
     ) : null
   }
-  <a class="font-semibold text-sky-800 underline-offset-4 hover:underline" href={href} target="_blank">
+  <a
+    class="inline-flex items-center gap-1 font-semibold text-sky-800 underline-offset-4 hover:underline"
+    href={href}
+    target="_blank"
+  >
     {name}
-    {!href ? null : <Image alt={`前往${name}`} class="inline" src={IconLink} />}
+    {!href ? null : <Image alt={`前往${name}`} src={IconLink} />}
   </a>
   {
     Astro.slots.has("extra") ? (

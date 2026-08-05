@@ -20,9 +20,13 @@ const { href, icon, name } = Astro.props;
   </p>
   {
     href ? (
-      <a class="font-semibold text-sky-800 underline-offset-4 hover:underline" href={href} target="_blank">
+      <a
+        class="inline-flex items-center gap-1 font-semibold text-sky-800 underline-offset-4 hover:underline"
+        href={href}
+        target="_blank"
+      >
         <slot />
-        {!href ? null : <Image alt={`前往${name}`} class="inline" src={Link} />}
+        {!href ? null : <Image alt={`前往${name}`} src={Link} />}
       </a>
     ) : (
       <p class="font-semibold text-sky-800">

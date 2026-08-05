@@ -40,8 +40,8 @@ const [data, last7Days, nowData, colorData, posts, links] = await allSettledValu
         <p class="text-base text-gray-500">
           coding: {nowData ? nowData.data.categories[0]?.text || "无" : "未知"}
         </p>
-        <p class="text-sm text-gray-400">
-          <Refresh class="inline size-[1rem] align-[-2.5px]" />
+        <p class="flex items-center gap-1 text-sm text-gray-400">
+          <Refresh class="size-[1rem]" />
           <span>{nowData ? formatDate(nowData.cached_at) : "未知"}</span>
         </p>
       </div>
